@@ -1,3 +1,4 @@
+import com.pswidersk.gradle.python.PythonPluginExtension
 import com.pswidersk.gradle.python.VenvTask
 import org.jfrog.gradle.plugin.artifactory.dsl.ArtifactoryPluginConvention
 
@@ -33,6 +34,9 @@ configure<ArtifactoryPluginConvention> {
             publications("ALL_PUBLICATIONS")
         }
     }
+}
+configure<PythonPluginExtension> {
+    pythonVersion = "3.9"
 }
 
 tasks {
