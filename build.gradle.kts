@@ -1,5 +1,4 @@
 import com.pswidersk.gradle.python.VenvTask
-import org.gradle.api.internal.artifacts.dsl.LazyPublishArtifact
 import org.jfrog.gradle.plugin.artifactory.dsl.ArtifactoryPluginConvention
 
 /*
