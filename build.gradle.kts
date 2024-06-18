@@ -37,6 +37,7 @@ configure<ArtifactoryPluginConvention> {
 }
 configure<PythonPluginExtension> {
     pythonVersion = "3.9"
+    systemArch = "arm64"
 }
 
 tasks {

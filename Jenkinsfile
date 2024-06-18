@@ -8,8 +8,8 @@ pipeline {
             steps {
                 script {
                     echo "build"
-                    version = sh (returnStdout: true, script:'./gradlew -Partifactory_user=$ARTIFACTORY_CREDS_USR -Partifactory_password=$ARTIFACTORY_CREDS_PSW snapshot projectVersion').trim()
-                    echo "$version"
+                    sh './gradlew -Partifactory_user=$ARTIFACTORY_CREDS_USR -Partifactory_password=$ARTIFACTORY_CREDS_PSW snapshot projectVersion'
+
                 }
             }
         }
