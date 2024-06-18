@@ -37,7 +37,6 @@ configure<ArtifactoryPluginConvention> {
 }
 configure<PythonPluginExtension> {
     pythonVersion = "3.9"
-    condaVersion = "py311_23.5.2-0-MacOSX-arm64"
 }
 
 tasks {
