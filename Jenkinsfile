@@ -13,8 +13,9 @@ pipeline {
         }
         stage('SonarQube Analysis') {
             steps {
+                def scannerHome = tool 'SonarScanner 4.0';
                 withSonarQubeEnv('sonarqube') {
-                    sh "./gradlew -Partifactory_user=$ARTIFACTORY_CREDS_USR -Partifactory_password=$ARTIFACTORY_CREDS_PSW sonar"
+                    sh "${scannerHome}/bin/sonar-scanner"
                 }
             }
         }
