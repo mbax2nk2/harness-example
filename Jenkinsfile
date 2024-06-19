@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent { label 'linux' }
     environment {
         ARTIFACTORY_CREDS = credentials('artifactory')
     }
