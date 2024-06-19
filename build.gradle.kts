@@ -14,6 +14,7 @@ plugins {
     id("com.jfrog.artifactory") version "5.2.2"
     id("com.pswidersk.python-plugin") version "2.7.1"
     id("nebula.release") version "19.0.9"
+    id("org.sonarqube") version "4.4.1.3373"
     `maven-publish`
 }
 
@@ -118,6 +119,7 @@ publishing {
         create<MavenPublication>("mavenZip") {
             val packageZip by tasks.named("packageZip")
             artifact(packageZip)
+            version = "${project.version}-${System.getenv()["BUILD_ID"].orEmpty()}"
         }
     }
 }

@@ -4,24 +4,32 @@ pipeline {
         ARTIFACTORY_CREDS = credentials('artifactory')
     }
     stages {
-        stage('Build') {
+        stage('Test') {
             steps {
                 script {
-                    echo "build"
-                    sh './gradlew --info -Partifactory_user=$ARTIFACTORY_CREDS_USR -Partifactory_password=$ARTIFACTORY_CREDS_PSW snapshot projectVersion'
+                    sh './gradlew --info -Partifactory_user=$ARTIFACTORY_CREDS_USR -Partifactory_password=$ARTIFACTORY_CREDS_PSW coverageTestReport'
                 }
             }
         }
-        stage('Test') {
-            steps {
-                //
-                echo "test"
+        stage('SonarQube Analysis') {
+            withSonarQubeEnv() {
+              sh "./gradlew sonar"
             }
         }
-        stage('Deploy') {
+        stage('Build') {
+            steps {
+                script {
+                    sh './gradlew --info -Partifactory_user=$ARTIFACTORY_CREDS_USR -Partifactory_password=$ARTIFACTORY_CREDS_PSW build'
+                }
+            }
+        }
+
+        stage('Publish') {
             steps {
                 //
-                echo "deploy"
+                script {
+                    sh './gradlew --info -Partifactory_user=$ARTIFACTORY_CREDS_USR -Partifactory_password=$ARTIFACTORY_CREDS_PSW snapshot artifactoryPublish'
+                }
             }
         }
     }
