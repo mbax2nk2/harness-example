@@ -30,7 +30,7 @@ def lambda_handler(event, context):
 
 
     """
-    # success case
+    # error case
 
     #     raise e
     throw_error = os.environ.get("error", False)
