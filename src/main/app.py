@@ -1,6 +1,8 @@
 import json
+import os
 
 # import requests
+
 
 
 def lambda_handler(event, context):
@@ -32,6 +34,9 @@ def lambda_handler(event, context):
     #     print(e)
 
     #     raise e
+    throw_error = os.environ.get("error", False)
+    if throw_error:
+        raise Exception("some error")
 
     return {
         "statusCode": 200,
