@@ -37,10 +37,10 @@ pipeline {
                 }
             }
         }
-        post {
-            always {
-                junit 'build/reports/**/test_report.xml'
-            }
+    }
+    post {
+        always {
+            junit 'build/reports/**/test_report.xml'
         }
     }
 }
