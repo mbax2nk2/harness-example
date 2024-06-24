@@ -88,11 +88,6 @@ tasks {
         workingDir = layout.projectDirectory.dir("src").dir("test")
         venvExec = "pip"
         args = listOf("install", "--isolated", "-r", "requirements.txt")
-
-        val task = findByName("copyGitHooks")
-        if (task != null) {
-            dependsOn("copyGitHooks")
-        }
     }
     register<VenvTask>("test") {
         description = "Test application"
