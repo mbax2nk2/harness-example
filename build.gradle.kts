@@ -15,6 +15,7 @@ plugins {
     id("com.pswidersk.python-plugin") version "2.7.1"
     id("nebula.release") version "19.0.9"
     `maven-publish`
+    base
 }
 
 configure<ArtifactoryPluginConvention> {
@@ -59,7 +60,7 @@ tasks {
         dependsOn("build")
     }
 
-    register("build") {
+    named("build") {
         dependsOn("copySrcFiles", "pipInstallSrc")
 
         description = "Build application"
