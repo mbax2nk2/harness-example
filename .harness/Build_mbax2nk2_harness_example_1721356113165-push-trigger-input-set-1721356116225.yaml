@@ -1,0 +1,14 @@
+inputSet:
+  name: Build_mbax2nk2_harness_example_1721356113165-push-trigger-input-set
+  identifier: Build_mbax2nk2_harness_example_1721356113165pushtriggerinputset
+  orgIdentifier: default
+  projectIdentifier: test
+  pipeline:
+    identifier: Build_mbax2nk2_harness_example_1721356113165
+    properties:
+      ci:
+        codebase:
+          build:
+            type: branch
+            spec:
+              branch: <+trigger.branch>
