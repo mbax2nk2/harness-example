@@ -1,5 +1,7 @@
 import com.pswidersk.gradle.python.PythonPluginExtension
 import com.pswidersk.gradle.python.VenvTask
+import org.gradle.api.internal.file.IdentityFileResolver
+import org.gradle.api.java.archives.internal.DefaultManifest
 import org.jfrog.gradle.plugin.artifactory.dsl.ArtifactoryPluginConvention
 
 /*
@@ -62,6 +64,16 @@ tasks {
 
     named("build") {
         dependsOn("copySrcFiles", "pipInstallSrc")
+        doLast {
+            val manifestFile = layout.buildDirectory.file("dist/MANIFEST.MF").get().asFile
+            val manifest = DefaultManifest(IdentityFileResolver())
+
+            // add some attributes
+            manifest.attributes("Commit-Hash" to System.getenv()["GIT_SHORT_COMMIT_HASH"].orEmpty())
+            manifest.attributes("Implementation-Version" to getBuildVersion())
+            manifest.attributes("Specification-Title" to project.name)
+            manifest.writeTo(manifestFile)
+        }
 
         description = "Build application"
         group = JavaBasePlugin.BUILD_TASK_NAME
@@ -114,7 +126,10 @@ publishing {
         create<MavenPublication>("mavenZip") {
             val packageZip by tasks.named("packageZip")
             artifact(packageZip)
-            version = "${project.version}-${System.getenv()["BUILD_ID"].orEmpty()}"
+            version = getBuildVersion()
         }
     }
+}
+fun getBuildVersion(): String {
+    return "${project.version}-${System.getenv()["BUILD_ID"].orEmpty()}"
 }
