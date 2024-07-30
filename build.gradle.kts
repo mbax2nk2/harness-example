@@ -23,7 +23,7 @@ plugins {
 configure<ArtifactoryPluginConvention> {
     publish {
         // Define the Artifactory URL for publishing artifacts
-        contextUrl = "https://mbax2nk2.jfrog.io/artifactory"
+        contextUrl = "https://kenenbn2.jfrog.io/artifactory"
         // Define the project repository to which the artifacts will be published
         repository {
             // Set the Artifactory repository key
