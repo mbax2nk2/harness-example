@@ -28,10 +28,8 @@ def lambda_handler(event, context):
 
 
 
-
+    Success case
     """
-
-    #     raise e
     throw_error = os.environ.get("error", False)
     if throw_error:
         raise Exception("some error")
