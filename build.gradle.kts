@@ -62,6 +62,21 @@ tasks {
 
         dependsOn("build")
     }
+    register<Copy>("copySrcFiles") {
+        description = "Copy source files into build directory"
+        from(layout.projectDirectory.dir("src").dir("main"))
+        into(layout.buildDirectory.dir("dist"))
+        doFirst {
+            delete(layout.buildDirectory.dir("dist").get().asFile)
+        }
+    }
+
+    register<VenvTask>("pipInstallSrc") {
+        description = "Install dependencies for source file"
+        workingDir = layout.buildDirectory.dir("dist")
+        venvExec = "pip"
+        args = listOf("install", "--isolated", "-r", "requirements.txt", "-t", ".")
+    }
 
     named("build") {
         dependsOn("copySrcFiles", "pipInstallSrc")
@@ -78,22 +93,6 @@ tasks {
 
         description = "Build application"
         group = JavaBasePlugin.BUILD_TASK_NAME
-    }
-
-    register<Copy>("copySrcFiles") {
-        description = "Copy source files into build directory"
-        from(layout.projectDirectory.dir("src").dir("main"))
-        into(layout.buildDirectory.dir("dist"))
-        doFirst {
-            delete(layout.buildDirectory.dir("dist").get().asFile)
-        }
-    }
-
-    register<VenvTask>("pipInstallSrc") {
-        description = "Install dependencies for source file"
-        workingDir = layout.buildDirectory.dir("dist")
-        venvExec = "pip"
-        args = listOf("install", "--isolated", "-r", "requirements.txt", "-t", ".")
     }
 
     register<VenvTask>("pipInstallTest") {
