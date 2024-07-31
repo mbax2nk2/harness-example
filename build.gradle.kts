@@ -40,6 +40,7 @@ configure<ArtifactoryPluginConvention> {
 }
 configure<PythonPluginExtension> {
     pythonVersion = "3.9"
+    // https://github.com/PrzemyslawSwiderski/python-gradle-plugin
 }
 
 tasks {
